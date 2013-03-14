@@ -24,16 +24,8 @@ myOptParser = Range
   { lower = Opt.def &= Opt.argPos 0, upper = Opt.def &= Opt.argPos 1}
 
 
-collatz :: Integer -> IO Int
+collatz :: Integer -> Int
 collatz n = go 0 n
-  where
-    go cnt n
-      | n <= 1 = return cnt
-      | even n = go (cnt+1) (n `div` 2)
-      | odd  n = go (cnt+1) (3*n+1)
-
-collatzP :: Integer -> Int
-collatzP n = go 0 n
   where
     go cnt n
       | n <= 1 = cnt
@@ -48,10 +40,9 @@ main = do
     fmap maximum $
     parallelInterleaved $
     map (\(Range l u) -> do
-            let ret = maximum $ map (\n -> (collatzP n, n)) $ [l..u]
+            let ret = maximum $ map (\n -> (collatz n, n)) $ [l..u]
             ret `deepseq` return ret) $
     splitMega $
     Range lo up
---  let (hiC, hiN) = maximum $ map (\n -> (collatzP n, n)) $ [lo..up]
   printf "%d %d\n" hiN hiC
   stopGlobalPool
