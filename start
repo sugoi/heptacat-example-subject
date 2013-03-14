@@ -1,0 +1,5 @@
+#!/bin/bash
+cabal install --only-dependencies
+cabal configure
+cabal build
+./dist/build/collatz/collatz +RTS -N`cat /proc/cpuinfo  | grep processor | wc -l` -RTS $@
