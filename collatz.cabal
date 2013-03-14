@@ -6,7 +6,7 @@ version:             0.1.0.0
 synopsis:            A heptacat subject repository that contains program for colllatz-sequence length search.
 -- description:         
 homepage:            https://github.com/sugoi/heptacat-example-subject
-license:             AllRightsReserved
+license:             BSD3
 license-file:        LICENSE
 author:              TakayukiMuranushi
 maintainer:          muranushi@gmail.com
@@ -17,6 +17,8 @@ cabal-version:       >=1.8
 
 executable collatz
   main-is:             main.hs
+  ghc-options:         -O2 -threaded
   -- other-modules:       
   build-depends:       base ==4.6.*
                      , cmdargs >= 0.10
+                     , deepseq >= 1.3                     , parallel-io >= 0.3.2.1
